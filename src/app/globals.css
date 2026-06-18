@@ -1,49 +1,1453 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ============================================================
+   AudioArena — Global Stylesheet & Design System
+   ============================================================
+   Themes: Synthwave Dark (default), Synthwave Light,
+           Studio Dark, Studio Light
+   ============================================================ */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ————————————————————————————————————————————————————————————
+   § Google Fonts
+   ———————————————————————————————————————————————————————————— */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* ————————————————————————————————————————————————————————————
+   § CSS Reset & Base
+   ———————————————————————————————————————————————————————————— */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  hanging-punctuation: first last;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+body {
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  transition:
+    color var(--transition-normal),
+    background-color var(--transition-normal);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
 }
 
 a {
-  color: inherit;
+  color: var(--accent-primary);
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+a:hover {
+  color: var(--accent-tertiary);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Design Tokens — Shared (all themes)
+   ———————————————————————————————————————————————————————————— */
+:root {
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Shadows (base — themes may layer glow on top) */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --shadow-glow: 0 0 20px var(--accent-glow);
+
+  /* Typography stacks */
+  --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
+
+  /* Timing */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease-out;
+
+  /* Spacing — 4 px base scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-11: 44px;
+  --space-12: 48px;
+  --space-13: 52px;
+  --space-14: 56px;
+  --space-15: 60px;
+  --space-16: 64px;
+
+  /* Z-Index Scale */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-popover: 500;
+  --z-toast: 600;
+  --z-tooltip: 700;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Theme: Synthwave Dark  (default)
+   ———————————————————————————————————————————————————————————— */
+:root,
+[data-theme='synthwave-dark'] {
+  --bg-primary: #0d0015;
+  --bg-secondary: #1a0533;
+  --bg-surface: #2d1b4e;
+  --bg-elevated: #3d2a5c;
+  --bg-overlay: rgba(13, 0, 21, 0.85);
+
+  --text-primary: #f0e6ff;
+  --text-secondary: #b8a5d4;
+  --text-muted: #7a6899;
+  --text-inverse: #0d0015;
+
+  --accent-primary: #ff2d95;
+  --accent-secondary: #00f0ff;
+  --accent-tertiary: #ff6ec7;
+  --accent-glow: rgba(255, 45, 149, 0.4);
+  --accent-glow-secondary: rgba(0, 240, 255, 0.4);
+
+  --success: #00e676;
+  --warning: #ffab40;
+  --error: #ff5252;
+
+  --border: rgba(255, 110, 199, 0.2);
+  --border-subtle: rgba(184, 165, 212, 0.1);
+
+  --surface-glass: rgba(45, 27, 78, 0.6);
+  --backdrop-blur: blur(20px);
+
+  /* Theme-specific overrides */
+  --shadow-glow: 0 0 20px var(--accent-glow);
+  --scrollbar-track: var(--bg-secondary);
+  --scrollbar-thumb: var(--bg-elevated);
+  --scrollbar-thumb-hover: var(--accent-primary);
+  --selection-bg: rgba(255, 45, 149, 0.35);
+  --selection-text: #ffffff;
+  --focus-ring: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--accent-primary);
+
+  color-scheme: dark;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Theme: Synthwave Light
+   ———————————————————————————————————————————————————————————— */
+[data-theme='synthwave-light'] {
+  --bg-primary: #faf5ff;
+  --bg-secondary: #f0e6ff;
+  --bg-surface: #e8dcf5;
+  --bg-elevated: #ffffff;
+  --bg-overlay: rgba(250, 245, 255, 0.9);
+
+  --text-primary: #1a0533;
+  --text-secondary: #4a3566;
+  --text-muted: #7a6899;
+  --text-inverse: #faf5ff;
+
+  --accent-primary: #d4147a;
+  --accent-secondary: #0099aa;
+  --accent-tertiary: #cc4da0;
+  --accent-glow: rgba(212, 20, 122, 0.2);
+  --accent-glow-secondary: rgba(0, 153, 170, 0.2);
+
+  --success: #00a854;
+  --warning: #e68a00;
+  --error: #d32f2f;
+
+  --border: rgba(212, 20, 122, 0.15);
+  --border-subtle: rgba(26, 5, 51, 0.08);
+
+  --surface-glass: rgba(255, 255, 255, 0.7);
+  --backdrop-blur: blur(20px);
+
+  --scrollbar-track: var(--bg-secondary);
+  --scrollbar-thumb: var(--bg-surface);
+  --scrollbar-thumb-hover: var(--accent-primary);
+  --selection-bg: rgba(212, 20, 122, 0.25);
+  --selection-text: #1a0533;
+  --focus-ring: 0 0 0 2px var(--bg-elevated), 0 0 0 4px var(--accent-primary);
+
+  color-scheme: light;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Theme: Studio Dark
+   ———————————————————————————————————————————————————————————— */
+[data-theme='studio-dark'] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #222222;
+  --bg-surface: #2a2a2a;
+  --bg-elevated: #333333;
+  --bg-overlay: rgba(26, 26, 26, 0.9);
+
+  --text-primary: #e8e8e8;
+  --text-secondary: #a0a0a0;
+  --text-muted: #666666;
+  --text-inverse: #1a1a1a;
+
+  --accent-primary: #4a9eff;
+  --accent-secondary: #6bb3ff;
+  --accent-tertiary: #82c4ff;
+  --accent-glow: rgba(74, 158, 255, 0.25);
+  --accent-glow-secondary: rgba(107, 179, 255, 0.2);
+
+  --success: #4caf50;
+  --warning: #ff9800;
+  --error: #f44336;
+
+  --border: rgba(74, 158, 255, 0.15);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+
+  --surface-glass: rgba(42, 42, 42, 0.7);
+  --backdrop-blur: blur(16px);
+
+  --scrollbar-track: var(--bg-secondary);
+  --scrollbar-thumb: var(--bg-elevated);
+  --scrollbar-thumb-hover: var(--accent-primary);
+  --selection-bg: rgba(74, 158, 255, 0.3);
+  --selection-text: #ffffff;
+  --focus-ring: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--accent-primary);
+
+  color-scheme: dark;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Theme: Studio Light
+   ———————————————————————————————————————————————————————————— */
+[data-theme='studio-light'] {
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #ebebeb;
+  --bg-surface: #e0e0e0;
+  --bg-elevated: #ffffff;
+  --bg-overlay: rgba(245, 245, 245, 0.92);
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+  --text-inverse: #ffffff;
+
+  --accent-primary: #2680eb;
+  --accent-secondary: #4a9eff;
+  --accent-tertiary: #6bb3ff;
+  --accent-glow: rgba(38, 128, 235, 0.15);
+  --accent-glow-secondary: rgba(74, 158, 255, 0.12);
+
+  --success: #388e3c;
+  --warning: #e68900;
+  --error: #d32f2f;
+
+  --border: rgba(38, 128, 235, 0.12);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+
+  --surface-glass: rgba(255, 255, 255, 0.8);
+  --backdrop-blur: blur(16px);
+
+  --scrollbar-track: var(--bg-secondary);
+  --scrollbar-thumb: var(--bg-surface);
+  --scrollbar-thumb-hover: var(--accent-primary);
+  --selection-bg: rgba(38, 128, 235, 0.2);
+  --selection-text: #1a1a1a;
+  --focus-ring: 0 0 0 2px var(--bg-elevated), 0 0 0 4px var(--accent-primary);
+
+  color-scheme: light;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Selection & Scrollbar
+   ———————————————————————————————————————————————————————————— */
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* Thin scrollbars — Webkit */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: var(--radius-full);
+  transition: background var(--transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Typography Classes
+   ———————————————————————————————————————————————————————————— */
+.text-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+.text-heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.text-subheading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+}
+
+.text-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.text-small {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.text-xs {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  font-variant-ligatures: contextual;
+}
+
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary) 0%,
+    var(--accent-tertiary) 50%,
+    var(--accent-secondary) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Utility Classes — Glass / Glow / Animations
+   ———————————————————————————————————————————————————————————— */
+
+/* Glassmorphism Panel */
+.glass {
+  background: var(--surface-glass);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+/* Accent Glow Shadow */
+.glow {
+  box-shadow: var(--shadow-glow);
+}
+
+/* Accent Glow Text */
+.glow-text {
+  text-shadow:
+    0 0 10px var(--accent-glow),
+    0 0 30px var(--accent-glow),
+    0 0 60px var(--accent-glow-secondary);
+}
+
+/* Fade-In */
+.fade-in {
+  animation: fadeIn var(--transition-slow) both;
+}
+
+/* Slide Up */
+.slide-up {
+  animation: slideUp var(--transition-slow) both;
+}
+
+/* Pulse */
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Stagger helper — combine with animation classes */
+.stagger-1 { animation-delay: 50ms; }
+.stagger-2 { animation-delay: 100ms; }
+.stagger-3 { animation-delay: 150ms; }
+.stagger-4 { animation-delay: 200ms; }
+.stagger-5 { animation-delay: 250ms; }
+.stagger-6 { animation-delay: 300ms; }
+
+/* Visually hidden (screen-reader only) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Layout Utilities
+   ———————————————————————————————————————————————————————————— */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+
+/* ————————————————————————————————————————————————————————————
+   § Buttons
+   ———————————————————————————————————————————————————————————— */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.45;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Ripple-like shine on hover */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 70%
+  );
+}
+
+.btn:hover::after {
+  opacity: 1;
+}
+
+/* — Primary */
+.btn-primary {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+}
+
+.btn-primary:hover {
+  background: var(--accent-tertiary);
+  border-color: var(--accent-tertiary);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.btn-primary:active {
+  background: var(--accent-primary);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* — Secondary */
+.btn-secondary {
+  background: transparent;
+  color: var(--accent-primary);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+}
+
+/* — Ghost */
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  background: var(--border-subtle);
+  color: var(--text-primary);
+}
+
+/* — Danger */
+.btn-danger {
+  background: transparent;
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.btn-danger:hover {
+  background: var(--error);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(255, 82, 82, 0.3);
+}
+
+/* — Icon-only button */
+.btn-icon {
+  padding: var(--space-2);
+  aspect-ratio: 1;
+}
+
+/* — Sizes */
+.btn-sm {
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+  padding: var(--space-3) var(--space-6);
+  font-size: 1rem;
+  border-radius: var(--radius-lg);
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Input Fields
+   ———————————————————————————————————————————————————————————— */
+.input {
+  display: block;
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.input:hover {
+  border-color: var(--border);
+}
+
+.input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+  background: var(--bg-primary);
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Input with icon or addon */
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+.input-group .input {
+  flex: 1;
+}
+
+.input-group-icon {
+  position: absolute;
+  left: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.input-group-icon + .input {
+  padding-left: calc(var(--space-3) + 20px + var(--space-2));
+}
+
+.input-group-addon {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-3);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+
+.input-group-addon:first-child {
+  border-right: none;
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.input-group-addon:last-child {
+  border-left: none;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.input-group .input:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
+.input-group .input:first-child:not(:last-child) {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.input-group .input:last-child:not(:first-child) {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+/* Textarea */
+textarea.input {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Cards
+   ———————————————————————————————————————————————————————————— */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  transition:
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+.card-hover:hover {
+  border-color: var(--border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card-hover:active {
+  transform: translateY(0);
+}
+
+.card-glass {
+  background: var(--surface-glass);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.card-body {
+  flex: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+  margin-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Badges
+   ———————————————————————————————————————————————————————————— */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.badge-primary {
+  background: var(--accent-glow);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.badge-secondary {
+  background: var(--accent-glow-secondary);
+  color: var(--accent-secondary);
+  border-color: var(--accent-secondary);
+}
+
+.badge-success {
+  background: rgba(0, 230, 118, 0.15);
+  color: var(--success);
+  border-color: var(--success);
+}
+
+.badge-warning {
+  background: rgba(255, 171, 64, 0.15);
+  color: var(--warning);
+  border-color: var(--warning);
+}
+
+.badge-error {
+  background: rgba(255, 82, 82, 0.15);
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.badge-dot::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Modal / Dialog
+   ———————————————————————————————————————————————————————————— */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: var(--bg-overlay);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  animation: fadeIn 200ms ease both;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  max-height: 85dvh;
+  overflow-y: auto;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), 0 0 60px var(--accent-glow);
+  padding: var(--space-6);
+  animation: slideUp 300ms var(--transition-slow) both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.modal-close:hover {
+  background: var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Tooltip
+   ———————————————————————————————————————————————————————————— */
+.tooltip {
+  position: relative;
+}
+
+.tooltip::before,
+.tooltip::after {
+  position: absolute;
+  z-index: var(--z-tooltip);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.tooltip::before {
+  content: attr(data-tooltip);
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-1) var(--space-2);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+}
+
+.tooltip::after {
+  content: '';
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: var(--bg-elevated);
+}
+
+.tooltip:hover::before,
+.tooltip:hover::after,
+.tooltip:focus-visible::before,
+.tooltip:focus-visible::after {
+  opacity: 1;
+}
+
+/* Tooltip positions */
+.tooltip-right::before {
+  bottom: auto;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.tooltip-right::after {
+  bottom: auto;
+  left: calc(100% + 4px);
+  top: 50%;
+  transform: translateY(-50%);
+  border: 4px solid transparent;
+  border-right-color: var(--bg-elevated);
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Divider
+   ———————————————————————————————————————————————————————————— */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-subtle);
+  border: none;
+  margin: var(--space-4) 0;
+}
+
+.divider-accent {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-primary),
+    var(--accent-secondary),
+    transparent
+  );
+  height: 1px;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Toggle / Switch
+   ———————————————————————————————————————————————————————————— */
+.toggle {
+  --toggle-w: 40px;
+  --toggle-h: 22px;
+  --toggle-knob: 16px;
+  position: relative;
+  display: inline-flex;
+  width: var(--toggle-w);
+  height: var(--toggle-h);
+  cursor: pointer;
+}
+
+.toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-track {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: var(--toggle-knob);
+  height: var(--toggle-knob);
+  background: var(--text-secondary);
+  border-radius: var(--radius-full);
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.toggle input:checked + .toggle-track {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.toggle input:checked + .toggle-track::after {
+  transform: translateX(calc(var(--toggle-w) - var(--toggle-knob) - 6px));
+  background: #ffffff;
+}
+
+.toggle input:focus-visible + .toggle-track {
+  box-shadow: var(--focus-ring);
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Progress Bar
+   ———————————————————————————————————————————————————————————— */
+.progress {
+  width: 100%;
+  height: 4px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.progress-indeterminate .progress-bar {
+  width: 30% !important;
+  animation: indeterminate 1.5s ease-in-out infinite;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Skeleton Loader
+   ———————————————————————————————————————————————————————————— */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface) 25%,
+    var(--bg-elevated) 50%,
+    var(--bg-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+.skeleton-text {
+  height: 1em;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-circle {
+  border-radius: var(--radius-full);
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Toast / Notification
+   ———————————————————————————————————————————————————————————— */
+.toast-container {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  min-width: 300px;
+  max-width: 420px;
+  animation: slideLeft 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.toast-success {
+  border-left: 3px solid var(--success);
+}
+
+.toast-warning {
+  border-left: 3px solid var(--warning);
+}
+
+.toast-error {
+  border-left: 3px solid var(--error);
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Audio-Specific Utilities
+   ———————————————————————————————————————————————————————————— */
+
+/* Waveform bar — a single bar in an audio visualiser */
+.waveform-bar {
+  display: inline-block;
+  width: 3px;
+  min-height: 4px;
+  background: linear-gradient(
+    to top,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  border-radius: var(--radius-full);
+  transform-origin: bottom center;
+  animation: waveform 1.2s ease-in-out infinite alternate;
+}
+
+.waveform-bar:nth-child(2n)  { animation-delay: -0.4s; }
+.waveform-bar:nth-child(3n)  { animation-delay: -0.8s; }
+.waveform-bar:nth-child(5n)  { animation-delay: -0.2s; }
+.waveform-bar:nth-child(7n)  { animation-delay: -0.6s; }
+.waveform-bar:nth-child(11n) { animation-delay: -1.0s; }
+
+/* Meter / Level indicator */
+.level-meter {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.level-meter-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    90deg,
+    var(--success) 0%,
+    var(--success) 60%,
+    var(--warning) 80%,
+    var(--error) 100%
+  );
+  transition: width 60ms linear;
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Keyframe Animations
+   ———————————————————————————————————————————————————————————— */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+  50% {
+    box-shadow: 0 0 24px var(--accent-glow), 0 0 48px var(--accent-glow-secondary);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes waveform {
+  0% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.5);
+  }
+}
+
+@keyframes matchFound {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 var(--accent-glow);
+  }
+  30% {
+    transform: scale(1.08);
+    box-shadow:
+      0 0 20px var(--accent-glow),
+      0 0 40px var(--accent-glow-secondary);
+  }
+  60% {
+    transform: scale(0.98);
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-3px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(3px);
+  }
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Reduced Motion
+   ———————————————————————————————————————————————————————————— */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ————————————————————————————————————————————————————————————
+   § Focus-Visible Global
+   ———————————————————————————————————————————————————————————— */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
 }
