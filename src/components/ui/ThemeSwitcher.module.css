@@ -1,0 +1,53 @@
+import styles from './ThemeSwitcher.module.css';
+
+export const ThemeSwitcherModuleCss = `
+.container {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+}
+
+.button {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.button:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-elevated);
+}
+
+.button[data-active="true"] {
+  background-color: var(--accent-primary);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-glow);
+}
+
+.icon {
+  font-size: 1.1em;
+}
+
+@media (max-width: 768px) {
+  .label {
+    display: none;
+  }
+  .button {
+    padding: 0.5rem;
+  }
+}
+`;
