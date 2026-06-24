@@ -1,6 +1,3 @@
-import styles from './Navbar.module.css';
-
-export const NavbarModuleCss = `
 .navbar {
   position: sticky;
   top: 0;
@@ -68,4 +65,3 @@ export const NavbarModuleCss = `
     display: none;
   }
 }
-`;

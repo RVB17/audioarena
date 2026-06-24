@@ -1,6 +1,3 @@
-import styles from './Badge.module.css';
-
-export const BadgeModuleCss = `
 .badge {
   display: inline-flex;
   align-items: center;
@@ -65,4 +62,3 @@ export const BadgeModuleCss = `
   color: var(--accent-secondary);
   border: 1px dashed var(--accent-secondary);
 }
-`;

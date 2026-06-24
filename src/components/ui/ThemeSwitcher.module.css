@@ -1,6 +1,3 @@
-import styles from './ThemeSwitcher.module.css';
-
-export const ThemeSwitcherModuleCss = `
 .container {
   display: flex;
   align-items: center;
@@ -50,4 +47,3 @@ export const ThemeSwitcherModuleCss = `
     padding: 0.5rem;
   }
 }
-`;
