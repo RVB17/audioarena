@@ -10,7 +10,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps) {
   return {
-    title: \`\${params.username}'s Profile — AudioArena\`,
+    title: `${params.username}'s Profile — AudioArena`,
   };
 }
 

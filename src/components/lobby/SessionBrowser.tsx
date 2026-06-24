@@ -42,9 +42,9 @@ export const SessionBrowser = () => {
                   {session.slots.map((slot, i) => (
                     <div 
                       key={i} 
-                      className={\`w-6 h-6 rounded-full flex items-center justify-center text-xs \${
+                      className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${
                         slot.filled ? 'bg-accent-primary/20 text-accent-primary border border-accent-primary/50' : 'bg-surface-glass border border-dashed border-muted text-muted'
-                      }\`}
+                      }`}
                       title={slot.inst}
                     >
                       {slot.inst[0].toUpperCase()}
