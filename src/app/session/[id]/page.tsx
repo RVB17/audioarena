@@ -15,10 +15,10 @@ export default async function SessionPage({ params }: { params: { id: string } }
   // Fetch session data
   const { data: sessionData, error: sessionError } = await supabase
     .from('sessions')
-    .select(\`
+    .select(`
       *,
       creator:profiles!sessions_creator_id_fkey(username, display_name, avatar_url)
-    \`)
+    `)
     .eq('id', sessionId)
     .single();
 
@@ -29,10 +29,10 @@ export default async function SessionPage({ params }: { params: { id: string } }
   // Fetch participants
   const { data: participantsData, error: participantsError } = await supabase
     .from('session_participants')
-    .select(\`
+    .select(`
       *,
       profile:profiles(username, display_name, avatar_url)
-    \`)
+    `)
     .eq('session_id', sessionId);
 
   // Note: For MVP mock purposes, if we don't have participants yet due to direct linking,

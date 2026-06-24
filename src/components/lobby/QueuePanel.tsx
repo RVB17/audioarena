@@ -44,7 +44,7 @@ export const QueuePanel = () => {
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
-    return \`\${m}:\${s.toString().padStart(2, '0')}\`;
+    return `${m}:${s.toString().padStart(2, '0')}`;
   };
 
   return (
@@ -121,11 +121,11 @@ export const QueuePanel = () => {
                     key={genre}
                     onClick={() => toggleGenre(genre)}
                     disabled={status === 'queuing'}
-                    className={\`px-3 py-1 text-xs rounded-full border transition-all \${
+                    className={`px-3 py-1 text-xs rounded-full border transition-all ${
                       selectedGenres.includes(genre) 
                         ? 'border-accent-secondary bg-accent-secondary/20 text-text-primary' 
-                        : 'border-border-subtle bg-bg-elevated text-text-muted hover:border-text-muted'
-                    }\`}
+                        : 'border-border-subtle bg-bg-elevated text-text-muted hover:border-accent-secondary/50'
+                    }`}
                   >
                     {genre}
                   </button>
@@ -169,7 +169,7 @@ export const QueuePanel = () => {
             onClick={handleQueue}
             className={status === 'queuing' ? 'animate-pulse' : ''}
           >
-            {status === 'queuing' ? \`Cancel Search (\${formatTime(queueTime)})\` : 'Start Matchmaking'}
+            {status === 'queuing' ? `Cancel Search (${formatTime(queueTime)})` : 'Start Matchmaking'}
           </Button>
         )}
       </CardFooter>

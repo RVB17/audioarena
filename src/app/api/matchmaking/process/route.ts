@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     // In a production app, you would secure this endpoint with a secret key
     // so only an authorized cron job (e.g., Vercel Cron) can trigger it.
     const authHeader = request.headers.get('authorization');
-    if (process.env.CRON_SECRET && authHeader !== \`Bearer \${process.env.CRON_SECRET}\`) {
+    if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
