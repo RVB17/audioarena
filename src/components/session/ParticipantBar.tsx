@@ -34,7 +34,7 @@ export const ParticipantBar: React.FC<ParticipantBarProps> = ({
               />
               <div className="flex flex-col flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
-                  <span className={\`font-semibold text-sm truncate \${!isOnline ? 'text-muted' : 'text-text-primary'}\`}>
+                  <span className={`font-semibold text-sm truncate ${!isOnline ? 'text-muted' : 'text-text-primary'}`}>
                     {username}
                   </span>
                   {p.role === 'creator' && (

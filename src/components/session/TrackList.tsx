@@ -66,13 +66,13 @@ export const TrackList: React.FC<TrackListProps> = ({ tracks = MOCK_TRACKS }) =>
                 <div className="flex gap-1">
                   <button 
                     onClick={() => toggleMute(track.id)}
-                    className={\`w-6 h-6 rounded flex items-center justify-center text-xs font-bold transition-colors \${track.muted ? 'bg-error text-white' : 'bg-surface-glass text-muted hover:text-text-primary'}\`}
+                    className={`w-6 h-6 rounded flex items-center justify-center text-xs font-bold transition-colors ${track.muted ? 'bg-error text-white' : 'bg-surface-glass text-muted hover:text-text-primary'}`}
                   >
                     M
                   </button>
                   <button 
                     onClick={() => toggleSolo(track.id)}
-                    className={\`w-6 h-6 rounded flex items-center justify-center text-xs font-bold transition-colors \${track.solo ? 'bg-warning text-bg-primary' : 'bg-surface-glass text-muted hover:text-text-primary'}\`}
+                    className={`w-6 h-6 rounded flex items-center justify-center text-xs font-bold transition-colors ${track.solo ? 'bg-warning text-bg-primary' : 'bg-surface-glass text-muted hover:text-text-primary'}`}
                   >
                     S
                   </button>
@@ -107,7 +107,7 @@ export const TrackList: React.FC<TrackListProps> = ({ tracks = MOCK_TRACKS }) =>
                 style={{ 
                   left: '12.5%', // Start at measure 5
                   width: '25%',  // 8 measures long
-                  backgroundColor: \`\${track.color}40\`, // 25% opacity
+                  backgroundColor: `${track.color}40`, // 25% opacity
                   borderColor: track.color
                 }}
               >

@@ -71,7 +71,7 @@ export async function processMatchmakingQueue() {
       const { data: sessionData, error: sessionError } = await supabase
         .from('sessions')
         .insert({
-          name: \`\${mostCommonGenre.toUpperCase()} Jam\`,
+          name: `${mostCommonGenre.toUpperCase()} Jam`,
           creator_id: primary.user_id, // Primary is creator
           status: 'lobby',
           genre: mostCommonGenre,
@@ -122,7 +122,7 @@ export async function processMatchmakingQueue() {
       
       // For each user, send a realtime message to their personal queue channel
       for (const t of team) {
-        await supabase.channel(\`queue:\${t.user_id}\`).send({
+        await supabase.channel(`queue:${t.user_id}`).send({
           type: 'broadcast',
           event: 'match_found',
           payload: matchResult
