@@ -8,6 +8,7 @@ interface AvatarProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   fallback?: string;
   online?: boolean;
+  className?: string;
 }
 
 export const Avatar: React.FC<AvatarProps> = ({ 
@@ -15,10 +16,11 @@ export const Avatar: React.FC<AvatarProps> = ({
   alt = 'Avatar', 
   size = 'md', 
   fallback = '?', 
-  online 
+  online,
+  className = ''
 }) => {
   return (
-    <div className={`${styles.avatar} ${styles[size]}`}>
+    <div className={`${styles.avatar} ${styles[size]} ${className}`.trim()}>
       {src ? (
         <img src={src} alt={alt} className={styles.image} />
       ) : (

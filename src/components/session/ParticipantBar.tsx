@@ -29,7 +29,7 @@ export const ParticipantBar: React.FC<ParticipantBarProps> = ({
                 src={p.profile?.avatarUrl || undefined}
                 fallback={username.substring(0, 2)}
                 size="md"
-                isOnline={isOnline}
+                online={isOnline}
                 className={!isOnline ? "opacity-50" : ""}
               />
               <div className="flex flex-col flex-1 min-w-0">

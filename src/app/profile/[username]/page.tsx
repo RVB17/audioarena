@@ -20,7 +20,7 @@ export default async function PublicProfilePage({ params }: PageProps) {
 
   const { data, error } = await supabase
     .from('profiles')
-    .select('id, username, display_name, avatar_url, bio, instruments, genres, skill_level, rating, sessions_played, tracks_completed')
+    .select('id, username, display_name, avatar_url, bio, instruments, genres, skill_level, rating, sessions_played, tracks_completed, total_votes_received')
     .eq('username', username)
     .single();
 
@@ -40,6 +40,7 @@ export default async function PublicProfilePage({ params }: PageProps) {
     rating: data.rating || 0,
     sessionsPlayed: data.sessions_played || 0,
     tracksCompleted: data.tracks_completed || 0,
+    totalVotesReceived: data.total_votes_received || 0,
   };
 
   return (

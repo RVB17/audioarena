@@ -46,12 +46,12 @@ export function useSession(sessionId?: string) {
 
     fetchSession(sessionId);
 
-    const channel = supabase.channel(`session:\${sessionId}`)
+    const channel = supabase.channel(`session:${sessionId}`)
       .on('postgres_changes', { 
         event: '*', 
         schema: 'public', 
         table: 'sessions',
-        filter: \`id=eq.\${sessionId}\`
+        filter: `id=eq.${sessionId}`
       }, (payload) => {
         const updatedSession = payload.new as Session;
         setSession(updatedSession);
@@ -63,7 +63,7 @@ export function useSession(sessionId?: string) {
         event: '*',
         schema: 'public',
         table: 'session_participants',
-        filter: \`session_id=eq.\${sessionId}\`
+        filter: `session_id=eq.${sessionId}`
       }, () => {
         // Simple approach: re-fetch participants on any change
         fetchSession(sessionId);

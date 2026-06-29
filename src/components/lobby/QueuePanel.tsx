@@ -7,12 +7,13 @@ import { Badge } from '@/components/ui/Badge';
 import { useMatchmaking } from '@/hooks/useMatchmaking';
 import { useAuth } from '@/hooks/useAuth';
 import { INSTRUMENTS, GENRES, VIBE_TAGS } from '@/types/constants';
+import type { Instrument } from '@/types';
 
 export const QueuePanel = () => {
   const { user } = useAuth();
   const { status, queueTime, joinQueue, leaveQueue, matchResult, acceptMatch, declineMatch } = useMatchmaking(user?.id);
   
-  const [instrument, setInstrument] = useState(INSTRUMENTS[0]);
+  const [instrument, setInstrument] = useState<Instrument>(INSTRUMENTS[0] as Instrument);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [bpmMin, setBpmMin] = useState(80);
   const [bpmMax, setBpmMax] = useState(140);
@@ -100,7 +101,7 @@ export const QueuePanel = () => {
               <label className="text-sm font-semibold text-muted uppercase tracking-wider mb-2 block">I want to play</label>
               <select 
                 value={instrument}
-                onChange={(e) => setInstrument(e.target.value)}
+                onChange={(e) => setInstrument(e.target.value as Instrument)}
                 className="input w-full bg-bg-elevated capitalize"
                 disabled={status === 'queuing'}
               >

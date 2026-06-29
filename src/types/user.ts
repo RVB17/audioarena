@@ -27,4 +27,5 @@ export interface PublicProfile {
   rating: number;
   sessionsPlayed: number;
   tracksCompleted: number;
+  totalVotesReceived: number;
 }

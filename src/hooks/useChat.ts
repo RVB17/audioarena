@@ -49,12 +49,12 @@ export function useChat(sessionId?: string) {
     
     fetchMessages(sessionId);
 
-    const channel = supabase.channel(`chat:\${sessionId}`)
+    const channel = supabase.channel(`chat:${sessionId}`)
       .on('postgres_changes', {
         event: 'INSERT',
         schema: 'public',
         table: 'messages',
-        filter: \`session_id=eq.\${sessionId}\`
+        filter: `session_id=eq.${sessionId}`
       }, async (payload) => {
         const msg = payload.new;
         

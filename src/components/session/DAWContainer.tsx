@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { SessionHeader } from './SessionHeader';
 import { ParticipantBar } from './ParticipantBar';
