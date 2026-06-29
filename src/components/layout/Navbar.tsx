@@ -5,8 +5,12 @@ import { usePathname } from 'next/navigation';
 import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher';
 import styles from './Navbar.module.css';
 
+import { useAuth } from '@/hooks/useAuth';
+import { Avatar } from '@/components/ui/Avatar';
+
 export const Navbar = () => {
   const pathname = usePathname();
+  const { user, profile, isLoading } = useAuth();
 
   return (
     <nav className={styles.navbar}>
@@ -34,9 +38,22 @@ export const Navbar = () => {
       
       <div className={styles.actions}>
         <ThemeSwitcher />
-        <Link href="/login" className="btn btn-primary btn-sm">
-          Sign In
-        </Link>
+        
+        {!isLoading && (
+          user ? (
+            <Link href="/profile" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <Avatar 
+                src={profile?.avatarUrl || user.user_metadata?.avatar_url} 
+                fallback={profile?.username || user.email || '?'} 
+                size="sm" 
+              />
+            </Link>
+          ) : (
+            <Link href="/login" className="btn btn-primary btn-sm">
+              Sign In
+            </Link>
+          )
+        )}
       </div>
     </nav>
   );

@@ -136,25 +136,32 @@ export const QueuePanel = () => {
             
             <div>
               <label className="text-sm font-semibold text-muted uppercase tracking-wider mb-2 block">
-                BPM Range: <span className="text-accent-secondary">{bpmMin} - {bpmMax}</span>
+                Target BPM Range
               </label>
               <div className="flex items-center gap-4">
-                <input 
-                  type="range" 
-                  min="60" max="200" step="5"
-                  value={bpmMin} 
-                  onChange={e => setBpmMin(Math.min(Number(e.target.value), bpmMax))}
-                  disabled={status === 'queuing'}
-                  className="w-full accent-accent-primary"
-                />
-                <input 
-                  type="range" 
-                  min="60" max="200" step="5"
-                  value={bpmMax} 
-                  onChange={e => setBpmMax(Math.max(Number(e.target.value), bpmMin))}
-                  disabled={status === 'queuing'}
-                  className="w-full accent-accent-primary"
-                />
+                <div className="flex items-center gap-2 flex-1">
+                  <span className="text-muted text-sm">Min</span>
+                  <input 
+                    type="number" 
+                    min="60" max="200" step="1"
+                    value={bpmMin} 
+                    onChange={e => setBpmMin(Math.min(Number(e.target.value), bpmMax))}
+                    disabled={status === 'queuing'}
+                    className="input w-full bg-bg-elevated font-mono"
+                  />
+                </div>
+                <span className="text-muted font-bold">-</span>
+                <div className="flex items-center gap-2 flex-1">
+                  <span className="text-muted text-sm">Max</span>
+                  <input 
+                    type="number" 
+                    min="60" max="200" step="1"
+                    value={bpmMax} 
+                    onChange={e => setBpmMax(Math.max(Number(e.target.value), bpmMin))}
+                    disabled={status === 'queuing'}
+                    className="input w-full bg-bg-elevated font-mono"
+                  />
+                </div>
               </div>
             </div>
           </>

@@ -31,7 +31,7 @@ export default function LobbyPage() {
         <div>
           <h1 className="text-display text-4xl mb-2">The Arena Lobby</h1>
           <p className="text-muted text-lg">
-            Welcome back, <span className="text-accent-secondary font-semibold">@{profile?.username || 'musician'}</span>. Ready to jam?
+            Welcome back, <span className="text-accent-secondary font-semibold">@{profile?.username || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'musician'}</span>. Ready to jam?
           </p>
         </div>
         
